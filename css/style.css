@@ -1,0 +1,12 @@
+.html5-counter-container .background-source{background: url(../img/html5-counter/the-voice-kids-counter-logo.jpg) no-repeat scroll top center transparent;width: 980px;height: 100px;display: block;}
+.html5-counter-container{width: 980px;margin: 15px auto;position: relative;}
+.html5-counter-container .counterDiff > div > div{display: inline-block;font-family: mytestmedium;color: #fff;font-size: 28px;}
+.html5-counter-container .daysDiff,.html5-counter-container .daysDiffWithCounter span{display: inline-block;font-family: mytestmedium;color: #fff;font-size: 60px;line-height: 40px;position: relative;left: 54px;}
+.html5-counter-container .counter-container {position: absolute;top: 20px;left: 160px;line-height: 60px;}
+.html5-counter-container .showPlaying {display: inline-block;font-family: mytestmedium;color: #000;font-size: 60px;line-height: 40px;position: relative;left: -25px;background-color: #ff9c00;line-height: 30px;padding: 5px 10px 25px;border-radius: 5px;}
+.html5-counter-container .counterHours,.html5-counter-container .counterMinutes,.html5-counter-container .counterSeconds{width: 45px;text-align: center;}
+.html5-counter-container .counterDiff .counterDiff-labels > div {font-size: 20px;}
+.html5-counter-container .counterDiff .counterDiff-numbers > div, .html5-counter-container .daysDiffWithCounter span.counter-numbers {background: #a90c09;border-radius: 3px;line-height: 40px;padding-bottom: 4px;}
+.counterDiff-labels {line-height: 10px;}
+.counterDiff {position: relative;top: -10px;}
+.html5-counter-container .daysDiffWithCounter span.counter-numbers {line-height: 40px;padding: 0 10px 10px;margin-left: 10px;}
