@@ -6,188 +6,187 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css" media="screen, projection">
 </head>
 <body>
-  <div class="html5-counter-container">
-     <a href="http://competition.mbc.net/arab-idol-counter-html5/" target="_blank">
-         <div class="counter-background">
-             <span class="background-source"></span>
-         </div>
-         <div class="counter-container">
-              <div class="daysDiff"></div>
-              <div class="daysDiffWithCounter">
-                 <span class="counter-numbers"></span>
-                 <span class="counter-days"></span>
-              </div>
-              <div class="showPlaying"></div>
-              <div class="counterDiff">
-                 <div class="counterDiff-numbers">
-                     <div class="counterSeconds"></div>
-                     <div class="counterMinutes"></div>
-                     <div class="counterHours"></div>
-                  </div>
-                 <div class="counterDiff-labels">
-                     <div class="counterSeconds"></div>
-                     <div class="counterMinutes"></div>
-                     <div class="counterHours"></div>
-                  </div>          
-              </div>
-         </div>  
-     </a> 
- </div>
- <script src="js/jquery.min.js" type="text/javascript"></script>
- <script type="text/javascript" src="js/countdown.js"></script>
- <script type="text/javascript" src="js/requestAnimationFrame.js"></script>
- <script src="js/timezonedb.min.js" type="text/javascript"></script>
- 
- 
- <script type="text/javascript">
-     (function() {
-         /*** GMT Time ***/
-         var year = 2016,
-             month = 11,
-             day = 3,
-             hour =22,
-             minute =0,
-             second = 0;
- 
- 
-         var serverDate = null;
- 
-         function drawDaysCounter(days){
-             switch(days) {
-                 case 1:
-                     showDaysContainers();
-                     jQuery(".daysDiff").html("غداً");
-                     break;
-                 case 2:
-                     showDaysContainers();
-                     jQuery(".daysDiff").html("يومان");  
-                     break;
-                 case 3,4,5,6,7,8,9,10:
-                     showDaysWithNumbers();
-                     jQuery(".daysDiffWithCounter .counter-days").html("يوم");
-                     jQuery(".daysDiffWithCounter .counter-numbers").html(days);   
-                     break;                  
-                 default:
-                     showDaysWithNumbers();
-                     jQuery(".daysDiffWithCounter .counter-days").html("أيام");   
-                     jQuery(".daysDiffWithCounter .counter-numbers").html(days);
-             }
- 
-         }
- 
-         function showNow(){
-             showPlayingNow();
-             jQuery(".showPlaying").html("تابعونا الآن");
-         }
- 
-         function drawCounter(timespan){
-             var counter; 
-             if (isCounterEnd(timespan)){
-                 showNow();
-             }else{
-                 hideDaysContainers();
-                 jQuery(".counterDiff-labels .counterHours").html("ساعه");
-                 jQuery(".counterDiff-numbers .counterHours").html(timespan.hours);
-                 
-                 jQuery(".counterDiff-labels .counterMinutes").html("دقيقه");
-                 jQuery(".counterDiff-numbers .counterMinutes").html(timespan.minutes);
-                 
-                 jQuery(".counterDiff-labels .counterSeconds").html("ثانيه");    
-                 jQuery(".counterDiff-numbers .counterSeconds").html(timespan.seconds);
-             }       
-         }
- 
-         function counterGenerator(){
-             serverTime();
-             var obj = setTimeout(function(){counterGenerator()}, 1000);
-             if (serverDate == undefined){return;}
-             var startDate = calculateLocalizationDiff(serverDate);
- 
-             var endDate = calculateLocalizationDiff(new Date(year, month, day, hour, minute, second));
-             if(startDate > endDate){showNow();clearTimeout(obj);return;}
- 
-             var days = diff(endDate, startDate);
-             if (days == 0) {
-                 var timespan = countdown(startDate, endDate);
-                 drawCounter(timespan);
-                 if (isCounterEnd(timespan)){
-                     clearTimeout(obj);
-                 } 
-             } else {
-                 drawDaysCounter(days);
-             }
-         }
- 
-         function isCounterEnd(timespan){
-             return (timespan.hours == 0 && timespan.minutes == 0 && timespan.seconds == 0);
-         }
- 
-         function showDaysContainers(){
-             jQuery(".daysDiff").show();
-             jQuery(".showPlaying").hide();
-             jQuery(".counterDiff").hide();  
-             jQuery(".daysDiffWithCounter").hide();  
-         }
- 
-         function hideDaysContainers(){
-             jQuery(".daysDiff").hide();
-             jQuery(".showPlaying").hide();
-             jQuery(".counterDiff").show();  
-             jQuery(".daysDiffWithCounter").hide();  
-         }
- 
-         function showPlayingNow(){
-             jQuery(".daysDiff").hide();
-             jQuery(".showPlaying").show();
-             jQuery(".counterDiff").hide();  
-             jQuery(".daysDiffWithCounter").hide();  
-         }
- 
-         function showDaysWithNumbers(){
-             jQuery(".daysDiff").hide();
-             jQuery(".showPlaying").hide();
-             jQuery(".counterDiff").hide();  
-             jQuery(".daysDiffWithCounter").show();  
-         }
- 
-         function diff(datex, datey) {
-             var days = datex.getDate() - datey.getDate();
-             return days;
-         }
- 
-         function serverTime(){
-             if (serverDate != null){
-                 caculateDate();
-             }else{
-                 timeZoneDB();   
-             }
-        }
- 
-         function caculateDate(){
-             serverDate = new Date (serverDate + 1000);
-         }
- 
-         function getUserTimeZone(){
-             return ((new Date().getTimezoneOffset()*60*1000));
-         }
- 
-         function calculateLocalizationDiff(obj){
-             return (new Date(obj - getUserTimeZone()));
-         }
- 
-         function timeZoneDB(){
-             var tz = new TimeZoneDB;
-             tz.getJSON({
-                 key: "M6UJBI5J10C0",
-                 lat: "51.508751",
-                 lng: "-0.12616"
-             }, function(data){
-                 var dateObj = new Date(data.timestamp * 1000);
-                 serverDate = new Date(dateObj.getFullYear(), dateObj.getMonth() + 1, dateObj.getDate(), dateObj.getHours() + (getUserTimeZone()/3600000), dateObj.getMinutes(), dateObj.getSeconds(), 0);
-             });
-         }
-         counterGenerator();
-     })();
- </script>
+<div class="html5-counter-container">
+   <a href="http://www.mbc.net/ar/programs/kuwait-national-day/live-stream/articles/%D8%A7%D8%AD%D8%AA%D9%81%D8%A7%D9%84%D8%A7%D8%AA-%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A-%D9%84%D9%84%D9%83%D9%88%D9%8A%D8%AA---%D8%A8%D8%AB-%D9%85%D8%A8%D8%A7%D8%B4%D8%B1.html">
+       <div class="counter-background">
+           <span class="background-source"></span>
+       </div>
+       <div class="counter-container">
+            <div class="daysDiff"></div>
+            <div class="daysDiffWithCounter">
+               <span class="counter-numbers"></span>
+               <span class="counter-days"></span>
+            </div>
+            <div class="showPlaying"></div>
+            <div class="counterDiff">
+               <div class="counterDiff-numbers">
+                   <div class="counterSeconds"></div>
+                   <div class="counterMinutes"></div>
+                   <div class="counterHours"></div>
+                </div>
+               <div class="counterDiff-labels">
+                   <div class="counterSeconds"></div>
+                   <div class="counterMinutes"></div>
+                   <div class="counterHours"></div>
+                </div>          
+            </div>
+       </div>  
+   </a> 
+</div>
+<script type="text/javascript" src="http://www.mbc.net/dms/creative/channels/mbcNET/js/countdown.js"></script>
+<script type="text/javascript" src="http://www.mbc.net/dms/creative/channels/mbcNET/js/requestAnimationFrame.js"></script>
+<script src="/dms/creative/channels/mbcNET/js/timezonedb-min/timezonedb.min.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+   (function() {
+       /*** GMT Time ***/
+       var year = 2017,
+           month = 2,
+           day = 28,
+           hour =8,
+           minute =0,
+           second = 0;
+
+
+       var serverDate = null;
+
+       function drawDaysCounter(days){
+           switch(days) {
+               case 1:
+                   showDaysContainers();
+                   jQuery(".daysDiff").html("غداً");
+                   break;
+               case 2:
+                   showDaysContainers();
+                   jQuery(".daysDiff").html("يومان");  
+                   break;
+               case 3,4,5,6,7,8,9,10:
+                   showDaysWithNumbers();
+                   jQuery(".daysDiffWithCounter .counter-days").html("يوم");
+                   jQuery(".daysDiffWithCounter .counter-numbers").html(days);   
+                   break;                  
+               default:
+                   showDaysWithNumbers();
+                   jQuery(".daysDiffWithCounter .counter-days").html("أيام");   
+                   jQuery(".daysDiffWithCounter .counter-numbers").html(days);
+           }
+
+       }
+
+       function showNow(){
+           showPlayingNow();
+           jQuery(".showPlaying").html("تابعونا الآن");
+       }
+
+       function drawCounter(timespan){
+           var counter; 
+           if (isCounterEnd(timespan)){
+               showNow();
+           }else{
+               hideDaysContainers();
+               jQuery(".counterDiff-labels .counterHours").html("ساعه");
+               jQuery(".counterDiff-numbers .counterHours").html(timespan.hours);
+               
+               jQuery(".counterDiff-labels .counterMinutes").html("دقيقه");
+               jQuery(".counterDiff-numbers .counterMinutes").html(timespan.minutes);
+               
+               jQuery(".counterDiff-labels .counterSeconds").html("ثانيه");    
+               jQuery(".counterDiff-numbers .counterSeconds").html(timespan.seconds);
+           }       
+       }
+
+       function counterGenerator(){
+           serverTime();
+           var obj = setTimeout(function(){counterGenerator()}, 1000);
+           if (serverDate == undefined){return;}
+           var startDate = calculateLocalizationDiff(serverDate);
+
+           var endDate = calculateLocalizationDiff(new Date(year, month, day, hour, minute, second));
+           if(startDate > endDate){showNow();clearTimeout(obj);return;}
+
+           var days = diff(endDate, startDate);
+           if (days == 0) {
+               var timespan = countdown(startDate, endDate);
+               drawCounter(timespan);
+               if (isCounterEnd(timespan)){
+                   clearTimeout(obj);
+               } 
+           } else {
+               drawDaysCounter(days);
+           }
+       }
+
+       function isCounterEnd(timespan){
+           return (timespan.hours == 0 && timespan.minutes == 0 && timespan.seconds == 0);
+       }
+
+       function showDaysContainers(){
+           jQuery(".daysDiff").show();
+           jQuery(".showPlaying").hide();
+           jQuery(".counterDiff").hide();  
+           jQuery(".daysDiffWithCounter").hide();  
+       }
+
+       function hideDaysContainers(){
+           jQuery(".daysDiff").hide();
+           jQuery(".showPlaying").hide();
+           jQuery(".counterDiff").show();  
+           jQuery(".daysDiffWithCounter").hide();  
+       }
+
+       function showPlayingNow(){
+           jQuery(".daysDiff").hide();
+           jQuery(".showPlaying").show();
+           jQuery(".counterDiff").hide();  
+           jQuery(".daysDiffWithCounter").hide();  
+       }
+
+       function showDaysWithNumbers(){
+           jQuery(".daysDiff").hide();
+           jQuery(".showPlaying").hide();
+           jQuery(".counterDiff").hide();  
+           jQuery(".daysDiffWithCounter").show();  
+       }
+
+       function diff(datex, datey) {
+           var days = datex.getDate() - datey.getDate();
+           return days;
+       }
+
+       function serverTime(){
+           if (serverDate != null){
+               caculateDate();
+           }else{
+               timeZoneDB();   
+           }
+      }
+
+       function caculateDate(){
+           serverDate = new Date (serverDate + 1000);
+       }
+
+       function getUserTimeZone(){
+           return ((new Date().getTimezoneOffset()*60*1000));
+       }
+
+       function calculateLocalizationDiff(obj){
+           return (new Date(obj - getUserTimeZone()));
+       }
+
+       function timeZoneDB(){
+           var tz = new TimeZoneDB;
+           tz.getJSON({
+               key: "M6UJBI5J10C0",
+               lat: "51.508751",
+               lng: "-0.12616"
+           }, function(data){
+               var dateObj = new Date(data.timestamp * 1000);
+               serverDate = new Date(dateObj.getFullYear(), dateObj.getMonth() + 1, dateObj.getDate(), dateObj.getHours() + (getUserTimeZone()/3600000), dateObj.getMinutes(), dateObj.getSeconds(), 0);
+           });
+       }
+       counterGenerator();
+   })();
+</script>
 </body>
 </html>
