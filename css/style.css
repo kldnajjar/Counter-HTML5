@@ -13,7 +13,7 @@
 .html5-counter-container .counterDiff .counterDiff-numbers > div {color: #ffffff;}
 .html5-counter-container .daysDiffWithCounter span.counter-numbers {line-height: 40px;padding: 0 10px 10px;margin-left: 10px;}
 .daysDiff {background-color: #a18e52;height: auto;padding: 5px 10px 15px;border-radius: 5px;}
-/** HTML5 Counter - Just Change the Colors for the below two line for custamization comment the below two styles and change from the above**/
+/** HTML5 Counter - Just Change the Colors for the below two styles for custamization comment the below two styles and change from the above**/
 .html5-counter-container .counterDiff .counterDiff-numbers > div,
 .html5-counter-container .daysDiffWithCounter span.counter-numbers,.daysDiff {background: #a18e52;}
 .html5-counter-container .counterDiff .counterDiff-numbers > div,
