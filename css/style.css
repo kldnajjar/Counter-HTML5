@@ -1,5 +1,5 @@
 /*** HTML5 Counter ****/
-.html5-counter-container .background-source{background: url(../img/html5-counter/AGT-counter-2017.jpg) no-repeat scroll top center transparent;width: 980px;height: 96px;display: block;}
+.html5-counter-container .background-source{background: url(../img/AGT-counter-2017.jpg) no-repeat scroll top center transparent;width: 980px;height: 96px;display: block;}
 .html5-counter-container{width: 980px;margin: 7px auto 0;position: relative;}
 .html5-counter-container .counterDiff > div > div{display: inline-block;font-family: mytestmedium;color: #ffffff;font-size: 28px;}
 .html5-counter-container .daysDiff,.html5-counter-container .daysDiffWithCounter span{display: inline-block;font-family: mytestmedium;color: #ffffff;font-size: 32px;line-height: 38px;position: relative;left: 54px;}
