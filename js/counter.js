@@ -1,7 +1,7 @@
 var counterObj = {};
-counterObj.scripts = ["http://www.mbc.net/dms/creative/channels/mbcNET/js/countdown.js",
-                      "http://www.mbc.net/dms/creative/channels/mbcNET/js/requestAnimationFrame.js",
-                      "http://www.mbc.net/dms/creative/channels/mbcNET/js/timezonedb-min/timezonedb.min.js"]
+counterObj.scripts = ["countdown.js",
+                      "requestAnimationFrame.js",
+                      "timezonedb.min.js"]
 
 counterObj.tomorrow = "غداً";
 counterObj.twoDays = "يومان";
@@ -12,6 +12,11 @@ counterObj.hour = "ساعه";
 counterObj.seconds = "دقيقه";
 counterObj.minutes = "ثانيه";
 counterObj.showCountDown = "الليله";
+
+
+counterObj.debug = false;
+counterObj.startDateObj;
+counterObj.EndDateObj;
 
 /*** GMT Time ***/
 var year = 0,
@@ -71,12 +76,23 @@ function drawCounter(timespan){
 function counterGenerator(){
     serverTime();
     var obj = setTimeout(function(){counterGenerator()}, 1000);
-    if (serverDate == undefined){return;}
-    var startDate = calculateLocalizationDiff(serverDate);
+    if (!counterObj.debug){
+      if (serverDate == undefined){return;}
+    }
 
-    var endDate = calculateLocalizationDiff(new Date(year, month, day, hour, minute, second));
+
+    var startDate;
+    var endDate;
+    if (counterObj.debug){
+      if (counterObj.startDateObj === undefined || counterObj.EndDateObj === undefined){return;}
+      startDate = counterObj.startDateObj;
+      endDate = calculateLocalizationDiff(counterObj.EndDateObj);
+    }else{
+      startDate = serverDate;
+      endDate = calculateLocalizationDiff(new Date(year, month-1, day, hour, minute, second));
+    }
+
     if(startDate > endDate){showNow();clearTimeout(obj);return;}
-
     var days = diff(endDate, startDate);
     if (days == 0) {
         var timespan = countdown(startDate, endDate);
@@ -127,7 +143,19 @@ function showDaysWithNumbers(){
 }
 
 function diff(datex, datey) {
-    var days = datex.getDate() - datey.getDate();
+   if (datey.getFullYear() == datex.getFullYear() && datey.getMonth() == datex.getMonth() && datey.getDate() == datex.getDate()) {
+     return 0;
+   }
+    var datexx = new Date(datex.getFullYear(), datex.getMonth() , datex.getDate(), 0, 0, 0, 0);
+    var dateyy = new Date(datey.getFullYear(), datey.getMonth() , datey.getDate(), 0, 0, 0, 0);
+
+    var timeDiff = Math.abs(datexx.getTime() - dateyy.getTime());
+    days = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    if (days == 1 && (datex.getHours() == 0 && datex.getMinutes() == 0)) {
+      return 0;
+      //var minutesDiff = datex.getMinutes - datey.getMinutes
+      //if (days == 1 && (datex.getHours() == 0 && minutesDiff < 30)) {
+    }
     return days;
 }
 
@@ -141,7 +169,6 @@ function serverTime(){
 
 function caculateDate(){
     serverDate.setSeconds(serverDate.getSeconds()+1)
-    //serverDate = new Date (serverDate + 1000);
 }
 
 function getUserTimeZone(){
@@ -160,7 +187,7 @@ function timeZoneDB(){
         lng: "-0.12616"
     }, function(data){
         var dateObj = new Date(data.timestamp * 1000);
-        serverDate = new Date(dateObj.getFullYear(), dateObj.getMonth() + 1, dateObj.getDate(), dateObj.getHours() + (getUserTimeZone()/3600000), dateObj.getMinutes(), dateObj.getSeconds(), 0);
+        serverDate = new Date(dateObj.getFullYear(), dateObj.getMonth() , dateObj.getDate(), dateObj.getHours(), dateObj.getMinutes(), dateObj.getSeconds(), 0);
     });
 }
 
@@ -250,6 +277,7 @@ jQuery(document).ready(function(){
       initScripts();
       syncObjects(counter);
       counter.append(draw());
+      setTimeout(function(){serverTime();}, 500);
       setTimeout(function(){counterGenerator();}, 500);
     }
 });
