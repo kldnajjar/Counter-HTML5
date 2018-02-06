@@ -11,13 +11,15 @@ counterObj.watchNow = "تابعونا الآن";
 counterObj.hour = "ساعه";
 counterObj.seconds = "دقيقه";
 counterObj.minutes = "ثانيه";
-counterObj.showCountDown = "الليله";
+counterObj.showCountDown = "الليلة";
 
 
 counterObj.debug = false;
 counterObj.startDateObj;
 counterObj.EndDateObj;
 
+counterObj.isTimeimeShifting = false;
+counterObj.timeShifting;
 /*** GMT Time ***/
 var year = 0,
     month = 0,
@@ -146,15 +148,23 @@ function diff(datex, datey) {
    if (datey.getFullYear() == datex.getFullYear() && datey.getMonth() == datex.getMonth() && datey.getDate() == datex.getDate()) {
      return 0;
    }
+
+
     var datexx = new Date(datex.getFullYear(), datex.getMonth() , datex.getDate(), 0, 0, 0, 0);
     var dateyy = new Date(datey.getFullYear(), datey.getMonth() , datey.getDate(), 0, 0, 0, 0);
 
     var timeDiff = Math.abs(datexx.getTime() - dateyy.getTime());
     days = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    if (counterObj.isTimeShifting){
+       if ((((datex.getHours()*60) + (datex.getMinutes())) <= counterObj.timeShifting) && days === 1){
+         days = 0;
+       }
+    }
     if (days == 1 && (datex.getHours() == 0 && datex.getMinutes() == 0)) {
-      return 0;
-      //var minutesDiff = datex.getMinutes - datey.getMinutes
-      //if (days == 1 && (datex.getHours() == 0 && minutesDiff < 30)) {
+        days = 0;
+        //var minutesDiff = datex.getMinutes - datey.getMinutes
+        //if (days == 1 && (datex.getHours() == 0 && minutesDiff < 30)) {
     }
     return days;
 }
@@ -269,6 +279,13 @@ function syncObjects(counter){
   minute = counter.attr("minute") !== undefined? parseInt(counter.attr("minute")) : 0;
   second = counter.attr("second") !== undefined? parseInt(counter.attr("second")) : 0;
   showCountDown = counter.attr("showCountDown") !== undefined? parseBoolean(counter.attr("showCountDown")) : true;
+
+  counterObj.isTimeShifting = counter.attr("timeShifting") !== undefined? true : false;
+  if (counterObj.isTimeShifting){
+    counterObj.timeShifting = parseInt(counter.attr("timeShifting")) * 60;
+  }
+
+
 }
 
 jQuery(document).ready(function(){
