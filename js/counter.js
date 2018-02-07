@@ -157,8 +157,8 @@ function diff(datex, datey) {
     days = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
     if (counterObj.isTimeShifting){
-       if ((((datex.getHours()*60) + (datex.getMinutes())) <= counterObj.timeShifting) && days === 1){
-         days = 0;
+       if ((((datex.getHours()*60) + (datex.getMinutes())) <= counterObj.timeShifting)){
+         days -= 1;
        }
     }
     if (days == 1 && (datex.getHours() == 0 && datex.getMinutes() == 0)) {
