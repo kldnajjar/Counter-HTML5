@@ -155,17 +155,18 @@ function diff(datex, datey) {
 
     var timeDiff = Math.abs(datexx.getTime() - dateyy.getTime());
     days = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
+    var isShiftedUnderTwoDays = false;
     if (counterObj.isTimeShifting){
-       if ((((datex.getHours()*60) + (datex.getMinutes())) <= counterObj.timeShifting)){
-         days -= 1;
-       }
-    }
-    if (days == 1 && (datex.getHours() == 0 && datex.getMinutes() == 0)) {
+        if ((((datex.getHours()*60) + (datex.getMinutes())) <= counterObj.timeShifting)){
+          if (days == 2){isShiftedUnderTwoDays = true;}
+          days -= 1;
+        }
+     }
+    if (days == 1 && (datex.getHours() == 0 && datex.getMinutes() == 0) && !isShiftedUnderTwoDays) {
         days = 0;
         //var minutesDiff = datex.getMinutes - datey.getMinutes
         //if (days == 1 && (datex.getHours() == 0 && minutesDiff < 30)) {
-    }
+    }    
     return days;
 }
 
@@ -196,8 +197,9 @@ function timeZoneDB(){
         lat: "51.508751",
         lng: "-0.12616"
     }, function(data){
+        var timeSaving  = data.dst; // 0 winter time, 1 summer time
         var dateObj = new Date(data.timestamp * 1000);
-        serverDate = new Date(dateObj.getFullYear(), dateObj.getMonth() , dateObj.getDate(), dateObj.getHours(), dateObj.getMinutes(), dateObj.getSeconds(), 0);
+        serverDate = new Date(dateObj.getFullYear(), dateObj.getMonth() , dateObj.getDate(), dateObj.getHours() - timeSaving, dateObj.getMinutes(), dateObj.getSeconds(), 0);
     });
 }
 
